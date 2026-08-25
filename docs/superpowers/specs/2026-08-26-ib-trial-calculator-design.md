@@ -201,7 +201,7 @@ Single route `/` plus `/boundaries`.
 
 ## 8. Testing
 
-- `score.test.ts`: reweighting sums to 1; weighted percent for a worked example (Physics HL 30/40, 15/20, 60/90 → P1 45%, P2 55% → 60.0% → rounds 60 → grade 6 since boundary for 6 is 58); rounding at the boundary (81.5 → 82 → 7; 81.4 → 81 → 6); zero marks → grade 1; full marks → 7; TOK/EE letters at each threshold; core matrix spot checks (A/A=3, E/x=fail, C/D=0); diploma rules each triggered once; best-three-HL rule with four HLs.
+- `score.test.ts`: reweighting sums to 1; weighted percent for a worked example (Physics HL 1A 30/40, 1B 15/20, P2 60/90 → trial weights 30% / 15% / 55% → 22.5 + 11.25 + 36.67 = 70.4 → rounds to 70 → grade 7 since the grade-7 boundary is 69); rounding at the boundary (81.5 → 82 → 7; 81.4 → 81 → 6); zero marks → grade 1; full marks → 7; TOK/EE letters at each threshold; core matrix spot checks (A/A=3, E/x=fail, C/D=0); diploma rules each triggered once; best-three-HL rule with four HLs.
 - `data.test.ts`: every boundary row has a subject entry with that level; every subject/level has ≥1 exam component; exam ibWeights match the 4.2 table's totals (sciences 36+44=80, etc.); all lower-bound arrays are 7 long, start at 0, strictly increasing, ≤ 100; group map only references known ids.
 - `next build` passes; manual check in the browser (desktop + mobile width) before the final push.
 
