@@ -25,8 +25,8 @@ export function GroupCard({ group, state, duplicate, dispatch }: GroupCardProps)
   const result = ready ? scoreSubject(state.subjectId as SubjectId, state.level as Level, state.marks) : null;
 
   return (
-    <Card className="gap-4 p-6">
-      <h3 className="font-display text-lg font-bold">{group.label}</h3>
+    <Card className="gap-4 border-border/80 p-6 shadow-sm transition-shadow hover:shadow-md">
+      <h3 className="font-display text-lg font-bold text-primary">{group.label}</h3>
       <div className="flex flex-col gap-2 sm:flex-row">
         <Select items={subjectItems} value={state.subjectId ?? null} onValueChange={(v) => dispatch({ type: 'setSubject', group: group.key, subjectId: v as SubjectId })}>
           <SelectTrigger className="w-full rounded-2xl bg-muted sm:min-w-[260px]" aria-label={`${group.label} subject`}>

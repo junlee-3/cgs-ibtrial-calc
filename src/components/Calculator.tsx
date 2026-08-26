@@ -2,6 +2,7 @@
 
 import { CoreSection } from '@/components/CoreSection';
 import { GroupCard } from '@/components/GroupCard';
+import { Reveal } from '@/components/Reveal';
 import { Scoresheet } from '@/components/Scoresheet';
 import { StepHeading } from '@/components/StepHeading';
 import { GROUPS } from '@/data/groups';
@@ -28,22 +29,33 @@ export function Calculator() {
 
   return (
     <div>
-      <StepHeading number={1} label="Enter your subject marks" />
+      <Reveal delay={0.12}>
+        <StepHeading number={1} label="Enter your subject marks" />
+      </Reveal>
       <div className="space-y-4">
-        {GROUPS.map((g) => (
-          <GroupCard
-            key={g.key}
-            group={g}
-            state={state.groups[g.key]}
-            duplicate={state.groups[g.key].subjectId !== undefined && (counts.get(state.groups[g.key].subjectId as string) ?? 0) > 1}
-            dispatch={dispatch}
-          />
+        {GROUPS.map((g, i) => (
+          <Reveal key={g.key} delay={0.04 * (i % 3)}>
+            <GroupCard
+              group={g}
+              state={state.groups[g.key]}
+              duplicate={state.groups[g.key].subjectId !== undefined && (counts.get(state.groups[g.key].subjectId as string) ?? 0) > 1}
+              dispatch={dispatch}
+            />
+          </Reveal>
         ))}
       </div>
-      <StepHeading number={2} label="Core points: EE and TOK marks" />
-      <CoreSection tok={state.tok} ee={state.ee} dispatch={dispatch} />
-      <StepHeading number={3} label="Results sheet" />
-      <Scoresheet subjects={subjects} tokIdx={tokIdx} eeIdx={eeIdx} core={core} onReset={() => dispatch({ type: 'reset' })} />
+      <Reveal>
+        <StepHeading number={2} label="Core points: EE and TOK marks" />
+      </Reveal>
+      <Reveal>
+        <CoreSection tok={state.tok} ee={state.ee} dispatch={dispatch} />
+      </Reveal>
+      <Reveal>
+        <StepHeading number={3} label="Results sheet" />
+      </Reveal>
+      <Reveal>
+        <Scoresheet subjects={subjects} tokIdx={tokIdx} eeIdx={eeIdx} core={core} onReset={() => dispatch({ type: 'reset' })} />
+      </Reveal>
     </div>
   );
 }

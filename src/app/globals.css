@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-source-serif), ui-serif, Georgia, serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -25,6 +25,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-sky: var(--sky);
+  --color-gold: var(--gold);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -32,27 +34,29 @@
 }
 
 :root {
+  /* CGS-inspired: navy, sky blue, gold */
   --radius: 0.75rem;
-  --background: #f7f6f2;
-  --foreground: #1c1b18;
+  --background: #f3f6fa;
+  --foreground: #0f1c2e;
   --card: #ffffff;
-  --card-foreground: #1c1b18;
+  --card-foreground: #0f1c2e;
   --popover: #ffffff;
-  --popover-foreground: #1c1b18;
-  --primary: #5b4fe9;
+  --popover-foreground: #0f1c2e;
+  --primary: #0b2c4a;
   --primary-foreground: #ffffff;
-  --secondary: #f1efe9;
-  --secondary-foreground: #1c1b18;
-  --muted: #f1efe9;
-  --muted-foreground: #6b6860;
-  --accent: #edebff;
-  --accent-foreground: #1c1b18;
-  --destructive: #c2410c;
-  --border: #e3e0d8;
-  --input: #e3e0d8;
-  --ring: #5b4fe9;
+  --secondary: #e8eef5;
+  --secondary-foreground: #0b2c4a;
+  --muted: #e8eef5;
+  --muted-foreground: #5a6b7d;
+  --accent: #dceaf6;
+  --accent-foreground: #0b2c4a;
+  --destructive: #b91c1c;
+  --border: #d2dde8;
+  --input: #d2dde8;
+  --ring: #3d7eb5;
+  --sky: #3d7eb5;
+  --gold: #c5a35a;
 }
-
 
 @layer base {
   * {
@@ -61,5 +65,15 @@
   body {
     @apply bg-background text-foreground;
     font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  .bg-campus {
+    background-color: var(--background);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, color-mix(in oklab, var(--sky) 18%, transparent), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 0%, color-mix(in oklab, var(--gold) 10%, transparent), transparent),
+      linear-gradient(180deg, #eef3f8 0%, var(--background) 28%, var(--background) 100%);
   }
 }
