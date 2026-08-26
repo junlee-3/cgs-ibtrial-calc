@@ -21,7 +21,7 @@ function ScoreBox({ score, letter }: { score: string; letter: string }) {
       </div>
       <div className="text-right">
         <p className="text-sm text-muted-foreground">Awarded Grade</p>
-        <p className="font-display text-2xl font-bold">{letter}</p>
+        <p className="text-2xl font-semibold">{letter}</p>
       </div>
     </div>
   );
@@ -46,10 +46,10 @@ export function CoreSection({ tok, ee, dispatch }: CoreSectionProps) {
   const display = [...LETTERS].reverse(); // A, B, C, D, E
 
   return (
-    <Card className="border-border/80 p-6 shadow-sm">
-      <h3 className="mb-6 font-display text-2xl font-bold text-primary">Core Components</h3>
+    <Card className="p-6 shadow-[var(--shadow-1)]">
+      <h3 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">Core Components</h3>
       <section>
-        <h4 className="mb-2 font-display text-lg font-semibold text-primary">Theory of Knowledge</h4>
+        <h4 className="mb-2 text-lg font-semibold text-foreground">Theory of Knowledge</h4>
         <ScoreBox score={`${tokTotal}/${TOK_MAX}`} letter={LETTERS[tokIdx]} />
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           <PaperRow label="Theory of Knowledge essay" weight={2 / 3} value={tok.essay} max={10} onChange={(value) => dispatch({ type: 'setTok', field: 'essay', value })} />
@@ -57,13 +57,13 @@ export function CoreSection({ tok, ee, dispatch }: CoreSectionProps) {
         </div>
       </section>
       <section className="mt-10">
-        <h4 className="mb-2 font-display text-lg font-semibold text-primary">Extended Essay</h4>
+        <h4 className="mb-2 text-lg font-semibold text-foreground">Extended Essay</h4>
         <ScoreBox score={`${ee}/${EE_MAX}`} letter={LETTERS[eeIdx]} />
         <PaperRow label="Extended Essay" weight={1} value={ee} max={EE_MAX} onChange={(value) => dispatch({ type: 'setEE', value })} />
       </section>
       <section className="mt-10">
-        <h4 className="mb-3 flex items-center gap-2 font-display text-lg font-semibold text-primary">
-          Core Points: <span className="font-bold text-sky">{points === 'fail' ? 'Fail' : points}</span>
+        <h4 className="mb-3 flex items-center gap-2 text-lg font-semibold text-foreground">
+          Core Points: <span className="font-semibold text-coral-text">{points === 'fail' ? 'Fail' : points}</span>
         </h4>
         <div className="overflow-x-auto">
           <div

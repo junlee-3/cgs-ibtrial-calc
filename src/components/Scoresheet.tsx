@@ -26,10 +26,10 @@ export function Scoresheet({ subjects, tokIdx, eeIdx, core, onReset }: Scoreshee
   const awarded = complete && failures.length === 0;
 
   return (
-    <Card className="border-sky/15 p-6 shadow-sm ring-1 ring-sky/10">
+    <Card className="p-6 shadow-[var(--shadow-1)]">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h3 className="font-display text-2xl font-bold text-primary">Scoresheet</h3>
+          <h3 className="text-2xl font-semibold tracking-tight text-foreground">Scoresheet</h3>
           <Badge variant={awarded ? 'default' : 'secondary'} className="mt-2">
             {statusLabel(subjects.length, failures)}
           </Badge>

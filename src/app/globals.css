@@ -5,8 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-source-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -25,55 +27,116 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-sky: var(--sky);
-  --color-gold: var(--gold);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Chrysalis brand tokens */
+  --color-coral: #ff6b35;
+  --color-coral-light: #fff0e8;
+  --color-coral-deep: #e04e1a;
+  --color-coral-text: #c43d0f;
+  --color-purple: #8b7ec8;
+  --color-purple-light: #f0edff;
+  --color-purple-deep: #6c5fae;
+  --color-green: #2d8b5e;
+  --color-green-light: #e8f5ee;
+  --color-green-deep: #1f6b47;
+  --color-surface-2: #f5f5f5;
+  --color-border-strong: #c0c0c0;
+  --color-text-2: #555555;
+  --color-text-3: #767676;
+  --color-focus: #4a90d9;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-1: 0 1px 2px rgba(26, 26, 26, 0.05), 0 4px 16px rgba(255, 107, 53, 0.05);
+  --shadow-2: 0 2px 6px rgba(26, 26, 26, 0.06), 0 12px 32px rgba(255, 107, 53, 0.08);
+  --ease-brand: cubic-bezier(0.2, 0, 0, 1);
 }
 
 :root {
-  /* CGS-inspired: navy, sky blue, gold */
-  --radius: 0.75rem;
-  --background: #f3f6fa;
-  --foreground: #0f1c2e;
+  --radius: 12px;
+  --background: #fafafa;
+  --foreground: #1a1a1a;
   --card: #ffffff;
-  --card-foreground: #0f1c2e;
+  --card-foreground: #1a1a1a;
   --popover: #ffffff;
-  --popover-foreground: #0f1c2e;
-  --primary: #0b2c4a;
+  --popover-foreground: #1a1a1a;
+  --primary: #ff6b35;
   --primary-foreground: #ffffff;
-  --secondary: #e8eef5;
-  --secondary-foreground: #0b2c4a;
-  --muted: #e8eef5;
-  --muted-foreground: #5a6b7d;
-  --accent: #dceaf6;
-  --accent-foreground: #0b2c4a;
-  --destructive: #b91c1c;
-  --border: #d2dde8;
-  --input: #d2dde8;
-  --ring: #3d7eb5;
-  --sky: #3d7eb5;
-  --gold: #c5a35a;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f5f5f5;
+  --muted-foreground: #555555;
+  --accent: #fff0e8;
+  --accent-foreground: #c43d0f;
+  --destructive: #c43d0f;
+  --border: #d4d4d4;
+  --input: #d4d4d4;
+  --ring: #4a90d9;
+  --coral-glow: rgba(255, 107, 53, 0.25);
+  --dur-micro: 120ms;
+  --dur-standard: 200ms;
+  --dur-emphasis: 320ms;
+  --dur-scene: 600ms;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
   }
   body {
     @apply bg-background text-foreground;
+    font-size: 16px;
+    line-height: 1.55;
     font-variant-numeric: tabular-nums;
   }
 }
 
-@layer utilities {
-  .bg-campus {
-    background-color: var(--background);
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -20%, color-mix(in oklab, var(--sky) 18%, transparent), transparent),
-      radial-gradient(ellipse 60% 40% at 100% 0%, color-mix(in oklab, var(--gold) 10%, transparent), transparent),
-      linear-gradient(180deg, #eef3f8 0%, var(--background) 28%, var(--background) 100%);
+/* Atmosphere — light through paper (from Chrysalis style guide). */
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(52rem 40rem at 12% -6%, rgba(255, 145, 96, 0.11), transparent 62%),
+    radial-gradient(46rem 38rem at 96% 30%, rgba(139, 126, 200, 0.09), transparent 64%),
+    radial-gradient(50rem 42rem at 18% 96%, rgba(45, 139, 94, 0.07), transparent 60%);
+  animation: atmosphere-drift 60s ease-in-out infinite alternate;
+}
+
+@keyframes atmosphere-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
   }
+  to {
+    transform: translate3d(-1.5%, 1%, 0) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere {
+    animation: none;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-3);
+}
+
+.surface-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-1);
 }

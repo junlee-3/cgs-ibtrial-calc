@@ -1,14 +1,17 @@
-/** Simple CGS crest-inspired mark — navy shield with gold chevron. Not an official logo. */
+/** Compact CGS mark in Chrysalis coral/purple language. Not an official logo. */
 export function CgsMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden>
+      <rect x="2" y="2" width="36" height="36" rx="12" fill="#FFF0E8" stroke="#D4D4D4" />
       <path
-        d="M20 2.5c6.5 2.8 11.5 3.4 15 3.6v14.2c0 8.4-5.6 14.8-15 17.2C10.6 35.1 5 28.7 5 20.3V6.1c3.5-.2 8.5-.8 15-3.6Z"
-        fill="#0B2C4A"
+        d="M12 26c3.2-6.5 6.4-9.8 8-9.8s4.8 3.3 8 9.8"
+        stroke="#FF6B35"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        fill="none"
       />
-      <path d="M12 16.5h16l-8 9-8-9Z" fill="#C5A35A" />
-      <path d="M14.5 15h11v1.5H14.5V15Z" fill="#3D7EB5" />
-      <text x="20" y="13" textAnchor="middle" fill="white" fontSize="7" fontWeight="700" fontFamily="ui-sans-serif, system-ui, sans-serif">
+      <circle cx="20" cy="14" r="3.2" fill="#8B7EC8" />
+      <text x="20" y="33" textAnchor="middle" fill="#555555" fontSize="5.5" fontWeight="600" fontFamily="ui-monospace, monospace" letterSpacing="0.12em">
         CGS
       </text>
     </svg>
