@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CGS IB Trial Grade Calculator
 
-## Getting Started
+Enter trial-exam paper marks, get the IB grade each subject would earn under CGS's 2026 grade boundaries (3-year average), plus TOK/EE core points and a total out of 45.
 
-First, run the development server:
+- **Exam papers only.** Internal assessments and externally-marked coursework are excluded; the remaining paper weights are rescaled to 100%.
+- Paper structures are verified for the **November 2026** session (new Global Politics, ESS, SEHS and Business Management guides; English A Paper 2 out of 25).
+- Music, Theatre and Visual Arts have no written exam, so they take a single trial mark out of 100.
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm test       # Vitest
+pnpm build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where the numbers live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/data/boundaries.ts` — school boundaries (from the PDF in the repo root)
+- `src/data/subjects.ts` — papers, max marks and IB weights per subject/level
+- `src/lib/score.ts` — reweighting and grade lookup
+- `src/lib/core.ts` — TOK/EE letters, core points, diploma rules
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Design spec: `docs/superpowers/specs/2026-08-26-ib-trial-calculator-design.md`.
