@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useSyncExternalStore } from 'react';
 import { CoreSection } from '@/components/CoreSection';
 import { GroupCard } from '@/components/GroupCard';
 import { Scoresheet } from '@/components/Scoresheet';
@@ -11,16 +11,15 @@ import { scoreSubject } from '@/lib/score';
 import { initialState, reducer } from '@/lib/state';
 import { loadState, saveState } from '@/lib/storage';
 
+const subscribeNoop = () => () => {};
+
 export function Calculator() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [hydrated, setHydrated] = useState(false);
+  const hydrated = useSyncExternalStore(subscribeNoop, () => true, () => false);
 
   useEffect(() => {
     const saved = loadState();
     if (saved) dispatch({ type: 'hydrate', state: saved });
-    // Mount-detection flag for the SSR/CSR hydration guard (see brief); it can only be set here.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setHydrated(true);
   }, []);
 
   useEffect(() => {
