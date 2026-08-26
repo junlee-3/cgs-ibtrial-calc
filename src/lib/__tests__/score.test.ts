@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { examComponents } from '@/data/subjects';
-import { clampMark, gradeFor, scoreSubject, trialWeights, weightedPercent } from '@/lib/score';
+import { clampMark, gradeFor, roundPercent, scoreSubject, trialWeights, weightedPercent } from '@/lib/score';
 
 describe('clampMark', () => {
   it('clamps to [0, max] and rounds to an integer', () => {
@@ -39,6 +39,14 @@ describe('weightedPercent', () => {
     const comps = examComponents('maths-aa', 'SL');
     expect(weightedPercent(comps, {})).toBe(0);
     expect(weightedPercent(comps, { 'Paper 1 (no calculator)': 999, 'Paper 2': 80 })).toBeCloseTo(100, 9);
+  });
+});
+
+describe('roundPercent', () => {
+  it('rounds exact .5 ties up even when float arithmetic lands just below', () => {
+    expect(roundPercent(69.49999999999999)).toBe(70);
+    expect(roundPercent(69.4)).toBe(69);
+    expect(roundPercent(68.5)).toBe(69);
   });
 });
 
@@ -81,5 +89,11 @@ describe('scoreSubject', () => {
 
   it('throws for a level the school does not offer', () => {
     expect(() => scoreSubject('french-b', 'HL', {})).toThrow();
+  });
+
+  it('regression: Chinese B SL 30/30, 19/25, 13/40 is exactly 69.5 → 70 → grade 6', () => {
+    const r = scoreSubject('chinese-b', 'SL', { 'Paper 1: Writing': 30, 'Paper 2: Listening': 19, 'Paper 2: Reading': 13 });
+    expect(r.rounded).toBe(70);
+    expect(r.grade).toBe(6);
   });
 });

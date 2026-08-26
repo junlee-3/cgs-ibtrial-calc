@@ -143,7 +143,7 @@ Dropdowns are alphabetical. Level dropdown shows only the levels that exist for 
 1. `examComponents(subjectId, level)` → components with `kind === 'exam'`.
 2. `trialWeights(components)` → `w_i = ibWeight_i / Σ ibWeight_exam` (fractions summing to 1). Displayed as `Math.round(w_i × 100)%`.
 3. `weightedPercent(components, marks)` → `Σ (mark_i / maxMarks_i) × w_i × 100`. Missing marks count as 0. Marks are clamped to `[0, maxMarks]` integers on input.
-4. `gradeFor(percent, lowerBounds)` → `p = Math.round(percent)`; grade = number of lower bounds `≤ p` (1–7). A subject with no marks entered has percent 0 → grade 1 (as RevisionDojo).
+4. `gradeFor(percent, lowerBounds)` → `p = roundPercent(percent)` — the percent is snapped to 9 decimal places before `Math.round` so exact .5 ties produced by floating-point sums round up; grade = number of lower bounds `≤ p` (1–7). A subject with no marks entered has percent 0 → grade 1 (as RevisionDojo).
 5. TOK: `essay` /10, `exhibition` /10; `tokScore = 2·essay + exhibition` (out of 30); letter from lower bounds `E 0, D 4, C 10, B 16, A 22`.
 6. EE: `ee` /34; letter from lower bounds `E 0, D 6, C 13, B 20, A 26`.
 7. Core points matrix `[EE][TOK]` with index order E,D,C,B,A (F = fail):

@@ -65,7 +65,7 @@ export function GroupCard({ group, state, duplicate, dispatch }: GroupCardProps)
             <ScoreDial grade={result.grade} />
             <div>
               <p>
-                <span className="font-medium">Total Weighted Score:</span> {Math.round(result.percent)}/100
+                <span className="font-medium">Total Weighted Score:</span> {result.rounded}/100
               </p>
               <p>
                 <span className="font-medium">Predicted IB Grade:</span> {result.grade}/7

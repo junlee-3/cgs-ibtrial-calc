@@ -8,6 +8,8 @@ export type Marks = Record<string, number>;
 export interface SubjectScore {
   /** Weighted trial percentage, 0–100, unrounded. */
   percent: number;
+  /** Whole-number percent shown to the student (see roundPercent). */
+  rounded: number;
   /** IB grade 1–7 from the school boundaries. */
   grade: number;
   rows: { component: Component; weight: number }[];
@@ -33,9 +35,14 @@ export function weightedPercent(components: Component[], marks: Marks): number {
   }, 0);
 }
 
+/** Round a percent to a whole number, snapping away floating-point noise first so exact .5 ties round up. */
+export function roundPercent(percent: number): number {
+  return Math.round(Math.round(percent * 1e9) / 1e9);
+}
+
 /** Highest grade whose lower bound the rounded percent clears; always at least 1. */
 export function gradeFor(percent: number, bounds: Bounds): number {
-  const p = Math.round(percent);
+  const p = roundPercent(percent);
   return bounds.reduce((grade, lower, i) => (p >= lower ? i + 1 : grade), 1);
 }
 
@@ -47,6 +54,7 @@ export function scoreSubject(id: SubjectId, level: Level, marks: Marks): Subject
   const percent = weightedPercent(components, marks);
   return {
     percent,
+    rounded: roundPercent(percent),
     grade: gradeFor(percent, bounds),
     rows: components.map((component, i) => ({ component, weight: weights[i] })),
   };
