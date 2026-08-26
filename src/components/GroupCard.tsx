@@ -19,6 +19,7 @@ interface GroupCardProps {
 
 export function GroupCard({ group, state, duplicate, dispatch }: GroupCardProps) {
   const options = [...group.subjects].sort((a, b) => SUBJECTS[a].name.localeCompare(SUBJECTS[b].name));
+  const subjectItems = options.map((id) => ({ value: id, label: SUBJECTS[id].name }));
   const levels = state.subjectId ? levelsFor(state.subjectId) : [];
   const ready = state.subjectId !== undefined && state.level !== undefined;
   const result = ready ? scoreSubject(state.subjectId as SubjectId, state.level as Level, state.marks) : null;
@@ -27,7 +28,7 @@ export function GroupCard({ group, state, duplicate, dispatch }: GroupCardProps)
     <Card className="gap-4 p-6">
       <h2 className="font-display text-lg font-bold">{group.label}</h2>
       <div className="flex flex-col gap-2 sm:flex-row">
-        <Select value={state.subjectId ?? null} onValueChange={(v) => dispatch({ type: 'setSubject', group: group.key, subjectId: v as SubjectId })}>
+        <Select items={subjectItems} value={state.subjectId ?? null} onValueChange={(v) => dispatch({ type: 'setSubject', group: group.key, subjectId: v as SubjectId })}>
           <SelectTrigger className="w-full rounded-2xl bg-muted sm:min-w-[260px]" aria-label={`${group.label} subject`}>
             <SelectValue placeholder="Select subject" />
           </SelectTrigger>
@@ -40,7 +41,7 @@ export function GroupCard({ group, state, duplicate, dispatch }: GroupCardProps)
           </SelectContent>
         </Select>
         {state.subjectId && levels.length > 1 && (
-          <Select value={state.level ?? null} onValueChange={(v) => dispatch({ type: 'setLevel', group: group.key, level: v as Level })}>
+          <Select items={levels.map((level) => ({ value: level, label: level }))} value={state.level ?? null} onValueChange={(v) => dispatch({ type: 'setLevel', group: group.key, level: v as Level })}>
             <SelectTrigger className="w-full rounded-2xl bg-muted sm:w-[140px]" aria-label={`${group.label} level`}>
               <SelectValue placeholder="Select level" />
             </SelectTrigger>
