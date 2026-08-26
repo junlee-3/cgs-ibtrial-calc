@@ -45,6 +45,12 @@ describe('reducer', () => {
     expect(reducer(initialState, { type: 'hydrate', state: custom })).toEqual(custom);
   });
 
+  it('reset returns a fresh object equal to the initial state', () => {
+    const s = reducer({ ...initialState, ee: 20 }, { type: 'reset' });
+    expect(s).toEqual(initialState);
+    expect(s).not.toBe(initialState);
+  });
+
   it('hydrate sanitises stale data: drops unknown subjects/levels/components and clamps marks', () => {
     const stale = {
       ...initialState,

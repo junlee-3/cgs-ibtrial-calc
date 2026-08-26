@@ -87,7 +87,7 @@ export function reducer(state: CalculatorState, action: Action): CalculatorState
     case 'setEE':
       return { ...state, ee: clampMark(action.value, EE_MAX) };
     case 'reset':
-      return initialState;
+      return sanitize(initialState);
     case 'hydrate':
       return sanitize(action.state);
   }

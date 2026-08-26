@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useReducer, useSyncExternalStore } from 'react';
 import { CoreSection } from '@/components/CoreSection';
 import { GroupCard } from '@/components/GroupCard';
 import { Scoresheet } from '@/components/Scoresheet';
@@ -8,23 +7,10 @@ import { StepHeading } from '@/components/StepHeading';
 import { GROUPS } from '@/data/groups';
 import { corePoints, EE_BOUNDS, letterIndex, TOK_BOUNDS, tokScore, type SubjectResult } from '@/lib/core';
 import { scoreSubject } from '@/lib/score';
-import { initialState, reducer } from '@/lib/state';
-import { loadState, saveState } from '@/lib/storage';
-
-const subscribeNoop = () => () => {};
+import { usePersistedCalculator } from '@/lib/usePersistedCalculator';
 
 export function Calculator() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const hydrated = useSyncExternalStore(subscribeNoop, () => true, () => false);
-
-  useEffect(() => {
-    const saved = loadState();
-    if (saved) dispatch({ type: 'hydrate', state: saved });
-  }, []);
-
-  useEffect(() => {
-    if (hydrated) saveState(state);
-  }, [state, hydrated]);
+  const [state, dispatch] = usePersistedCalculator();
 
   const chosenIds = GROUPS.map((g) => state.groups[g.key].subjectId).filter((id): id is NonNullable<typeof id> => id !== undefined);
   const counts = new Map<string, number>();
