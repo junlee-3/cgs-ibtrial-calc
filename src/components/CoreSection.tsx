@@ -66,30 +66,44 @@ export function CoreSection({ tok, ee, dispatch }: CoreSectionProps) {
           Core Points: <span className="font-bold text-primary">{points === 'fail' ? 'Fail' : points}</span>
         </h3>
         <div className="overflow-x-auto">
-          <div className="grid min-w-[320px] grid-cols-6 gap-px overflow-hidden rounded-xl border-2 border-border bg-border text-center text-sm" role="table" aria-label="Core points matrix (rows: Extended Essay, columns: Theory of Knowledge)">
-            <div className="bg-background p-2 text-xs text-muted-foreground">EE \ TOK</div>
-            {display.map((l) => (
-              <div key={`h-${l}`} className="bg-background p-2 font-bold">
-                {l}
+          <div
+            className="grid min-w-[320px] grid-cols-6 gap-px overflow-hidden rounded-xl border-2 border-border bg-border text-center text-sm"
+            role="table"
+            aria-label="Core points matrix (rows: Extended Essay, columns: Theory of Knowledge)"
+          >
+            <div role="row" className="contents">
+              <div role="columnheader" className="bg-background p-2 text-xs text-muted-foreground">
+                EE \ TOK
               </div>
-            ))}
+              {display.map((l) => (
+                <div key={`h-${l}`} role="columnheader" className="bg-background p-2 font-bold">
+                  {l}
+                </div>
+              ))}
+            </div>
             {display.map((eeLetter) => {
               const eeI = LETTERS.indexOf(eeLetter);
-              return [
-                <div key={`r-${eeLetter}`} className="bg-background p-2 font-bold">
-                  {eeLetter}
-                </div>,
-                ...display.map((tokLetter) => {
-                  const tokI = LETTERS.indexOf(tokLetter);
-                  const v = CORE_MATRIX[eeI][tokI];
-                  const active = eeI === eeIdx && tokI === tokIdx;
-                  return (
-                    <div key={`c-${eeLetter}-${tokLetter}`} className={cn('p-2 font-medium', cellClass(v), active && 'ring-2 ring-inset ring-primary')}>
-                      {v === null ? 'Fail' : v}
-                    </div>
-                  );
-                }),
-              ];
+              return (
+                <div key={`r-${eeLetter}`} role="row" className="contents">
+                  <div role="rowheader" className="bg-background p-2 font-bold">
+                    {eeLetter}
+                  </div>
+                  {display.map((tokLetter) => {
+                    const tokI = LETTERS.indexOf(tokLetter);
+                    const v = CORE_MATRIX[eeI][tokI];
+                    const active = eeI === eeIdx && tokI === tokIdx;
+                    return (
+                      <div
+                        key={`c-${eeLetter}-${tokLetter}`}
+                        role="cell"
+                        className={cn('p-2 font-medium', cellClass(v), active && 'ring-2 ring-inset ring-primary')}
+                      >
+                        {v === null ? 'Fail' : v}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
             })}
           </div>
         </div>
