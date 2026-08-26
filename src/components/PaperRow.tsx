@@ -23,7 +23,7 @@ export function PaperRow({ label, weight, value, max, onChange }: PaperRowProps)
         <span className="text-sm text-muted-foreground">Weight: {Math.round(weight * 100)}%</span>
       </div>
       <div className="mt-3 flex items-center gap-3">
-        <Slider min={0} max={max} step={1} value={[value]} onValueChange={(value) => { const [v] = Array.isArray(value) ? value : [value]; onChange(clampMark(v, max)); }} aria-label={`${label} mark`} />
+        <Slider min={0} max={max} step={1} value={[value]} onValueChange={(next) => { const [v] = Array.isArray(next) ? next : [next]; onChange(clampMark(v, max)); }} aria-label={`${label} mark`} />
         <div className="flex shrink-0 items-center gap-1">
           <Input
             id={inputId}
