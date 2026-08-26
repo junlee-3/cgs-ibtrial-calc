@@ -4,32 +4,32 @@ import { Reveal } from '@/components/Reveal';
 
 export default function Home() {
   return (
-    <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6 sm:pt-12">
+    <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-10 sm:px-6 sm:pt-14">
       <Reveal>
-        <header className="text-center">
-          <p className="inline-flex items-center gap-2 rounded-full border border-sky/25 bg-white/70 px-3.5 py-1 text-xs font-semibold tracking-wide text-sky uppercase">
-            <span className="size-1.5 rounded-full bg-gold" aria-hidden />
-            Canberra Grammar School · IB Diploma
-          </p>
-          <h1 className="mt-5 font-display text-4xl font-bold tracking-tight text-primary sm:text-5xl">
-            Estimate your <span className="text-sky">IB score</span>
+        <header className="max-w-2xl">
+          <p className="eyebrow">Canberra Grammar School · IB Diploma</p>
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+            Estimate your <span className="text-coral-text">IB score</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Enter your trial exam marks and see predicted IB grades from the CGS 2026 three-year-average boundaries. Exam papers only — IAs are not counted.
+          <p className="mt-4 text-pretty text-base leading-relaxed text-text-2 sm:text-lg">
+            Enter trial exam marks and see predicted IB grades from the CGS 2026 three-year-average boundaries. Exam papers only — IAs are not counted.
           </p>
         </header>
       </Reveal>
 
-      <Reveal delay={0.08}>
+      <Reveal delay={0.06}>
         <Link
           href="/boundaries"
-          className="mt-8 flex items-center justify-between gap-4 rounded-2xl border border-border bg-white/80 p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-sky/40 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          className="surface-card mt-8 flex items-center justify-between gap-4 p-5 transition-[box-shadow,transform] duration-200 ease-[var(--ease-brand)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-2)] focus-visible:outline-none"
         >
           <span>
-            <span className="block font-display text-lg font-semibold text-primary">Grade boundaries</span>
-            <span className="block text-sm text-muted-foreground">See the CGS boundaries used for every subject</span>
+            <span className="block text-base font-semibold text-foreground">Grade boundaries</span>
+            <span className="mt-0.5 block text-sm text-text-2">See the CGS boundaries used for every subject</span>
           </span>
-          <span aria-hidden className="flex size-9 items-center justify-center rounded-full bg-muted text-sky">
+          <span
+            aria-hidden
+            className="flex size-9 items-center justify-center rounded-full bg-coral-light font-medium text-coral-text"
+          >
             →
           </span>
         </Link>

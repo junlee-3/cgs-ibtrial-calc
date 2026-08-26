@@ -17,7 +17,7 @@ interface PaperRowProps {
 export function PaperRow({ label, weight, value, max, onChange }: PaperRowProps) {
   const inputId = useId();
   return (
-    <div className="rounded-xl border border-border/80 bg-card p-4 transition-colors focus-within:border-sky/40">
+    <div className="rounded-xl border border-border bg-card p-4 transition-colors duration-200 focus-within:border-border-strong">
       <div className="flex w-full items-center justify-between gap-2 text-base font-medium">
         <label htmlFor={inputId}>{label}</label>
         <span className="text-sm text-muted-foreground">Weight: {Math.round(weight * 100)}%</span>

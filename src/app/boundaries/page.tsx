@@ -25,15 +25,16 @@ function range(lower: number, next: number | undefined): string {
 export default function BoundariesPage() {
   return (
     <main className="mx-auto w-full max-w-4xl px-4 pb-20 pt-8 sm:px-6 sm:pt-10">
-      <Link href="/" className="text-sm font-medium text-sky hover:text-primary">
+      <Link href="/" className="text-sm font-medium text-coral-text hover:underline">
         ← Back to the calculator
       </Link>
-      <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl">CGS IB grade boundaries 2026</h1>
-      <p className="mt-2 max-w-2xl text-muted-foreground">Three-year average, as a percentage of the subject&apos;s exam papers. Whole percentages; a mark on a boundary earns the higher grade.</p>
+      <p className="eyebrow mt-6">Reference</p>
+      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">CGS IB grade boundaries 2026</h1>
+      <p className="mt-2 max-w-2xl text-text-2">Three-year average, as a percentage of the subject&apos;s exam papers. Whole percentages; a mark on a boundary earns the higher grade.</p>
       {GROUPS.map((g) => (
         <section key={g.key} className="mt-10">
-          <h2 className="mb-3 font-display text-xl font-semibold text-primary">{g.label}</h2>
-          <div className="overflow-x-auto rounded-2xl border border-border bg-white shadow-sm">
+          <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground">{g.label}</h2>
+          <div className="surface-card overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>

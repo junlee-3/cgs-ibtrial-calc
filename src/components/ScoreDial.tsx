@@ -16,7 +16,7 @@ export function ScoreDial({ grade, size = 88 }: { grade: number; size?: number }
   return (
     <div className="flex shrink-0 flex-col items-center gap-1.5">
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label={`Predicted grade ${grade} out of 7`} className="shrink-0">
-        <circle cx={centre} cy={centre} r={r} fill="none" strokeWidth={stroke} className="stroke-muted" />
+        <circle cx={centre} cy={centre} r={r} fill="none" strokeWidth={stroke} stroke="#F5F5F5" />
         <motion.circle
           cx={centre}
           cy={centre}
@@ -28,7 +28,7 @@ export function ScoreDial({ grade, size = 88 }: { grade: number; size?: number }
           strokeDasharray={circumference}
           initial={false}
           animate={{ strokeDashoffset: circumference * (1 - fraction), stroke: color }}
-          transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 120, damping: 22 }}
+          transition={reduce ? { duration: 0 } : { duration: 0.32, ease: [0.2, 0, 0, 1] }}
           transform={`rotate(-90 ${centre} ${centre})`}
         />
         <foreignObject x={centre - 18} y={centre - 18} width={36} height={36}>
@@ -36,11 +36,11 @@ export function ScoreDial({ grade, size = 88 }: { grade: number; size?: number }
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.span
                 key={digit}
-                initial={reduce ? false : { y: 22, opacity: 0 }}
+                initial={reduce ? false : { y: 18, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={reduce ? undefined : { y: -22, opacity: 0 }}
-                transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 320, damping: 28 }}
-                className="absolute font-display text-2xl font-bold tabular-nums"
+                exit={reduce ? undefined : { y: -18, opacity: 0 }}
+                transition={reduce ? { duration: 0 } : { duration: 0.2, ease: [0.2, 0, 0, 1] }}
+                className="absolute text-2xl font-semibold tabular-nums"
                 style={{ color }}
               >
                 {digit}
@@ -49,7 +49,7 @@ export function ScoreDial({ grade, size = 88 }: { grade: number; size?: number }
           </div>
         </foreignObject>
       </svg>
-      <span className="text-[11px] font-medium tracking-wide uppercase" style={{ color }}>
+      <span className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase" style={{ color }}>
         {gradeLabel(grade)}
       </span>
     </div>

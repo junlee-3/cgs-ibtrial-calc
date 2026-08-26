@@ -1,25 +1,25 @@
-/** Colour bands for IB grades 1–7 — cools toward CGS navy as performance rises. */
+/** IB grade colours mapped onto the Chrysalis coral → purple → green ladder. */
 export function gradeHue(grade: number): string {
   const g = Math.max(0, Math.min(7, Math.round(grade)));
   switch (g) {
     case 0:
-      return '#94a3b8';
+      return '#767676';
     case 1:
-      return '#b91c1c';
+      return '#C43D0F';
     case 2:
-      return '#c2410c';
+      return '#E04E1A';
     case 3:
-      return '#b45309';
+      return '#FF6B35';
     case 4:
-      return '#a16207';
+      return '#8B7EC8';
     case 5:
-      return '#0e7490';
+      return '#6C5FAE';
     case 6:
-      return '#1d4ed8';
+      return '#2D8B5E';
     case 7:
-      return '#0b2c4a';
+      return '#1F6B47';
     default:
-      return '#0b2c4a';
+      return '#1F6B47';
   }
 }
 
