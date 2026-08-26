@@ -17,12 +17,12 @@ interface PaperRowProps {
 export function PaperRow({ label, weight, value, max, onChange }: PaperRowProps) {
   const inputId = useId();
   return (
-    <div className="rounded-xl bg-muted p-4">
+    <div className="rounded-xl border border-border bg-card p-4">
       <div className="flex w-full items-center justify-between gap-2 text-base font-medium">
         <label htmlFor={inputId}>{label}</label>
         <span className="text-sm text-muted-foreground">Weight: {Math.round(weight * 100)}%</span>
       </div>
-      <div className="mt-3 flex items-center gap-3">
+      <div className="mt-4 flex items-center gap-4">
         <Slider min={0} max={max} step={1} value={[value]} onValueChange={(next) => { const [v] = Array.isArray(next) ? next : [next]; onChange(clampMark(v, max)); }} aria-label={`${label} mark`} />
         <div className="flex shrink-0 items-center gap-1">
           <Input
@@ -33,9 +33,9 @@ export function PaperRow({ label, weight, value, max, onChange }: PaperRowProps)
             max={max}
             value={value}
             onChange={(e) => onChange(clampMark(Number(e.target.value), max))}
-            className="w-16 border-none bg-transparent text-right font-medium shadow-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            className="h-9 w-16 border-none bg-transparent px-1 text-right text-lg font-semibold shadow-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           />
-          <span className="text-sm text-muted-foreground">/ {max}</span>
+          <span className="text-base text-muted-foreground">/ {max}</span>
         </div>
       </div>
     </div>
