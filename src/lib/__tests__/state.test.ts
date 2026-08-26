@@ -44,4 +44,29 @@ describe('reducer', () => {
     expect(reducer(custom, { type: 'reset' })).toEqual(initialState);
     expect(reducer(initialState, { type: 'hydrate', state: custom })).toEqual(custom);
   });
+
+  it('hydrate sanitises stale data: drops unknown subjects/levels/components and clamps marks', () => {
+    const stale = {
+      ...initialState,
+      groups: {
+        ...initialState.groups,
+        g4: { subjectId: 'physics', level: 'HL', marks: { 'Paper 2': 999, Nope: 5 } },
+        g5: { subjectId: 'not-a-subject', level: 'HL', marks: { 'Paper 1': 10 } },
+        g2: { subjectId: 'french-b', level: 'HL', marks: {} },
+      },
+      tok: { essay: 99, exhibition: -1 },
+      ee: 100,
+    } as unknown as CalculatorState;
+    const s = reducer(initialState, { type: 'hydrate', state: stale });
+    expect(s.groups.g4).toEqual({ subjectId: 'physics', level: 'HL', marks: { 'Paper 2': 90 } });
+    expect(s.groups.g5).toEqual({ subjectId: undefined, level: undefined, marks: {} });
+    expect(s.groups.g2).toEqual({ subjectId: 'french-b', level: 'SL', marks: {} });
+    expect(s.tok).toEqual({ essay: 10, exhibition: 0 });
+    expect(s.ee).toBe(34);
+  });
+
+  it('hydrate tolerates a group that is missing marks', () => {
+    const stale = { ...initialState, groups: { ...initialState.groups, g1: {} } } as unknown as CalculatorState;
+    expect(reducer(initialState, { type: 'hydrate', state: stale }).groups.g1).toEqual({ subjectId: undefined, level: undefined, marks: {} });
+  });
 });

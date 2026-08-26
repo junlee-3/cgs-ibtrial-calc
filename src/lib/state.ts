@@ -1,7 +1,7 @@
 import { levelsFor } from '@/data/boundaries';
 import { GROUP_KEYS } from '@/data/groups';
 import { examComponents } from '@/data/subjects';
-import type { GroupKey, Level, SubjectId } from '@/data/types';
+import { SUBJECT_IDS, type GroupKey, type Level, type SubjectId } from '@/data/types';
 import { EE_MAX } from '@/lib/core';
 import { clampMark, type Marks } from '@/lib/score';
 
@@ -22,6 +22,32 @@ export const initialState: CalculatorState = {
   tok: { essay: 0, exhibition: 0 },
   ee: 0,
 };
+
+/** Rebuild a possibly-stale persisted state so it satisfies the reducer's invariants. */
+export function sanitize(raw: CalculatorState): CalculatorState {
+  const groups = Object.fromEntries(
+    GROUP_KEYS.map((key) => {
+      const g = (raw.groups?.[key] ?? {}) as Partial<GroupState>;
+      const subjectId =
+        typeof g.subjectId === 'string' && (SUBJECT_IDS as readonly string[]).includes(g.subjectId) ? (g.subjectId as SubjectId) : undefined;
+      const levels = subjectId ? levelsFor(subjectId) : [];
+      const level: Level | undefined = g.level && levels.includes(g.level) ? g.level : levels.length === 1 ? levels[0] : undefined;
+      const marks: Marks = {};
+      if (subjectId && level && g.marks && typeof g.marks === 'object') {
+        for (const c of examComponents(subjectId, level)) {
+          const v = (g.marks as Record<string, unknown>)[c.name];
+          if (typeof v === 'number') marks[c.name] = clampMark(v, c.maxMarks);
+        }
+      }
+      return [key, { subjectId, level, marks }];
+    }),
+  ) as Record<GroupKey, GroupState>;
+  return {
+    groups,
+    tok: { essay: clampMark(Number(raw.tok?.essay ?? 0), 10), exhibition: clampMark(Number(raw.tok?.exhibition ?? 0), 10) },
+    ee: clampMark(Number(raw.ee ?? 0), EE_MAX),
+  };
+}
 
 export type Action =
   | { type: 'setSubject'; group: GroupKey; subjectId: SubjectId | undefined }
@@ -63,6 +89,6 @@ export function reducer(state: CalculatorState, action: Action): CalculatorState
     case 'reset':
       return initialState;
     case 'hydrate':
-      return action.state;
+      return sanitize(action.state);
   }
 }
