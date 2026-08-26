@@ -99,7 +99,7 @@ describe('diplomaFailures', () => {
   it('flags a subject chosen twice', () => {
     const dup = six([6, 6, 6], [5, 5, 5]);
     dup[5] = subj('SL', 5, 'physics');
-    expect(diplomaFailures(dup, 2)).toContain('Your subject selection does not meet IB Diploma requirements.');
+    expect(diplomaFailures(dup, 2)).toContain('Your subject selection does not meet IB Diploma requirements. (Physics is chosen twice.)');
   });
 });
 

@@ -1,3 +1,4 @@
+import { SUBJECTS } from '@/data/subjects';
 import type { Level, SubjectId } from '@/data/types';
 import { clampMark } from '@/lib/score';
 
@@ -51,8 +52,11 @@ const sumTop = (grades: number[], n: number) =>
 export function diplomaFailures(subjects: SubjectResult[], core: number | 'fail'): string[] {
   if (subjects.length !== 6) return ['Select exactly 6 subjects'];
   const failures: string[] = [];
-  if (new Set(subjects.map((s) => s.subjectId)).size !== subjects.length) {
-    failures.push('Your subject selection does not meet IB Diploma requirements.');
+  const seen = new Map<SubjectId, number>();
+  for (const s of subjects) seen.set(s.subjectId, (seen.get(s.subjectId) ?? 0) + 1);
+  const duplicated = [...seen.entries()].filter(([, n]) => n > 1).map(([id]) => SUBJECTS[id].name);
+  if (duplicated.length > 0) {
+    failures.push(`Your subject selection does not meet IB Diploma requirements. (${duplicated.join(' and ')} is chosen twice.)`);
   }
   const hl = subjects.filter((s) => s.level === 'HL').map((s) => s.grade);
   const sl = subjects.filter((s) => s.level === 'SL').map((s) => s.grade);

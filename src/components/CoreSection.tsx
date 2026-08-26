@@ -47,9 +47,9 @@ export function CoreSection({ tok, ee, dispatch }: CoreSectionProps) {
 
   return (
     <Card className="p-6">
-      <h2 className="mb-6 font-display text-2xl font-bold">Core Components</h2>
+      <h3 className="mb-6 font-display text-2xl font-bold">Core Components</h3>
       <section>
-        <h3 className="mb-2 font-display text-lg font-bold">Theory of Knowledge</h3>
+        <h4 className="mb-2 font-display text-lg font-bold">Theory of Knowledge</h4>
         <ScoreBox score={`${tokTotal}/${TOK_MAX}`} letter={LETTERS[tokIdx]} />
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           <PaperRow label="Theory of Knowledge essay" weight={2 / 3} value={tok.essay} max={10} onChange={(value) => dispatch({ type: 'setTok', field: 'essay', value })} />
@@ -57,14 +57,14 @@ export function CoreSection({ tok, ee, dispatch }: CoreSectionProps) {
         </div>
       </section>
       <section className="mt-10">
-        <h3 className="mb-2 font-display text-lg font-bold">Extended Essay</h3>
+        <h4 className="mb-2 font-display text-lg font-bold">Extended Essay</h4>
         <ScoreBox score={`${ee}/${EE_MAX}`} letter={LETTERS[eeIdx]} />
         <PaperRow label="Extended Essay" weight={1} value={ee} max={EE_MAX} onChange={(value) => dispatch({ type: 'setEE', value })} />
       </section>
       <section className="mt-10">
-        <h3 className="mb-3 flex items-center gap-2 font-display text-lg font-bold">
+        <h4 className="mb-3 flex items-center gap-2 font-display text-lg font-bold">
           Core Points: <span className="font-bold text-primary">{points === 'fail' ? 'Fail' : points}</span>
-        </h3>
+        </h4>
         <div className="overflow-x-auto">
           <div
             className="grid min-w-[320px] grid-cols-6 gap-px overflow-hidden rounded-xl border-2 border-border bg-border text-center text-sm"

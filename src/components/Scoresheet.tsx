@@ -27,7 +27,7 @@ export function Scoresheet({ subjects, tokIdx, eeIdx, core, onReset }: Scoreshee
     <Card className="p-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold">Scoresheet</h2>
+          <h3 className="font-display text-2xl font-bold">Scoresheet</h3>
           <Badge variant={awarded ? 'default' : 'secondary'} className="mt-2">
             {statusLabel(subjects.length, failures)}
           </Badge>

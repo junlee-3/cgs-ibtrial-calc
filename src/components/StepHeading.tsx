@@ -4,7 +4,7 @@ export function StepHeading({ number, label }: { number: number; label: string }
       <span className="flex size-8 items-center justify-center rounded-full bg-primary font-display text-base font-bold text-primary-foreground">
         {number}
       </span>
-      <h3 className="text-xl font-medium">{label}</h3>
+      <h2 className="text-xl font-medium">{label}</h2>
     </div>
   );
 }
