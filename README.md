@@ -1,6 +1,6 @@
 # CGS IB Trial Grade Calculator
 
-Enter trial-exam paper marks, get the IB grade each subject would earn under CGS's 2026 grade boundaries (3-year average), plus TOK/EE core points and a total out of 45.
+Enter trial-exam paper marks, get the IB grade each subject would earn under CGS's 2026 grade boundaries (3-year average), plus TOK/EE core points and a total out of 45. For cgs class of 2026
 
 - **Exam papers only.** Internal assessments and externally-marked coursework are excluded; the remaining paper weights are rescaled to 100%.
 - Paper structures are verified for the **November 2026** session (new Global Politics, ESS, SEHS and Business Management guides; English A Paper 2 out of 25).
